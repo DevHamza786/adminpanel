@@ -45,7 +45,6 @@ export default [
   {
     title: 'Payments',
     icon: { icon: 'bx-money' },
-    to: 'apps-calendar',
   },
   {
     title: 'Income',
