@@ -8,26 +8,32 @@ export default [
       { title: 'View', to: { name: 'apps-user-view-id', params: { id: 21 } } },
     ],
   },
+  { heading: 'Apps & Pages' },
   {
     title: 'Content',
     icon: { icon: 'bx-book-content' },
   },
+  { heading: 'Apps & Pages' },
   {
     title: 'Bazar',
     icon: { icon: 'bx-store-alt' },
   },
+  { heading: 'Apps & Pages' },
   {
     title: 'FanPage',
     icon: { icon: 'bx-user-pin' },
   },
+  { heading: 'Apps & Pages' },
   {
     title: 'Ecommerce',
     icon: { icon: 'bx-shopping-bag' },
   },
+  { heading: 'Apps & Pages' },
   {
     title: 'Service Ads',
     icon: { icon: 'bx-category' },
   },
+  { heading: 'Apps & Pages' },
   {
     title: 'Product Ads',
     icon: { icon: 'bx-purchase-tag-alt' },

@@ -21,21 +21,21 @@ const tabs = [
     icon: 'bx-lock-open-alt',
     tab: 'security',
   },
-  {
-    title: 'Billing & Plans',
-    icon: 'bx-bookmark',
-    tab: 'billing-plans',
-  },
-  {
-    title: 'Notifications',
-    icon: 'bx-bell',
-    tab: 'notification',
-  },
-  {
-    title: 'Connections',
-    icon: 'bx-link',
-    tab: 'connection',
-  },
+  // {
+  //   title: 'Billing & Plans',
+  //   icon: 'bx-bookmark',
+  //   tab: 'billing-plans',
+  // },
+  // {
+  //   title: 'Notifications',
+  //   icon: 'bx-bell',
+  //   tab: 'notification',
+  // },
+  // {
+  //   title: 'Connections',
+  //   icon: 'bx-link',
+  //   tab: 'connection',
+  // },
 ]
 </script>
 
