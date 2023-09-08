@@ -1,7 +1,7 @@
 <script setup>
-import { useTheme } from 'vuetify'
 import navItems from '@/navigation/vertical'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
+import { useTheme } from 'vuetify'
 
 // Components
 import Footer from '@/layouts/components/Footer.vue'
@@ -46,9 +46,7 @@ const globalThemeBackground = computed(() => global.current.value.colors.backgro
         <NavSearchBar class="ms-lg-n3" />
 
         <VSpacer />
-
-        <NavBarI18n />
-        <NavbarThemeSwitcher />
+        
         <NavbarShortcuts />
         <NavBarNotifications class="me-2" />
         <UserProfile />

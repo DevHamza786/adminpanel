@@ -91,19 +91,6 @@ const logout = () => {
 
           <VDivider class="my-2" />
 
-          <!-- 👉 Profile -->
-          <VListItem :to="{ name: 'apps-user-view-id', params: { id: 21 } }">
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="bx-user"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>Profile</VListItemTitle>
-          </VListItem>
-
           <!-- 👉 Settings -->
           <VListItem :to="{ name: 'pages-account-settings-tab', params: { tab: 'account' } }">
             <template #prepend>
