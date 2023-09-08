@@ -1,8 +1,8 @@
 <script setup>
 import {
 requiredValidator,
-} from '@validators'
-import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
+} from '@validators';
+import { PerfectScrollbar } from 'vue3-perfect-scrollbar';
 
 const props = defineProps({
   isDrawerOpen: {
@@ -13,18 +13,13 @@ const props = defineProps({
 
 const emit = defineEmits([
   'update:isDrawerOpen',
-  'CategoryData',
+  'musicData',
 ])
 
 const isFormValid = ref(false)
-const name = ref()
+const status = ref()
 const file = ref()
-const switch1 = ref(1)
-const switch2 = ref('Show')
-const switch3 = ref('Show')
-const switch4 = ref('Show')
-
-
+const category = ref()
 
 // 👉 drawer close
 const closeNavigationDrawer = () => {
@@ -38,11 +33,13 @@ const closeNavigationDrawer = () => {
 const onSubmit = () => {
   refForm.value?.validate().then(({ valid }) => {
     if (valid) {
-      emit('CategoryData', {
+      emit('musicData', {
         id: 0,
-        name: name.value,
+        status: status.value,
         currentfile: file.value,
+        category: category.value,
         avatar: '',
+        status: 'active',
       })
       emit('update:isDrawerOpen', false)
       nextTick(() => {
@@ -61,7 +58,7 @@ const handleDrawerModelValueUpdate = val => {
 <template>
   <VNavigationDrawer
     temporary
-    :width="600"
+    :width="400"
     location="end"
     class="scrollable-content"
     :model-value="props.isDrawerOpen"
@@ -69,67 +66,48 @@ const handleDrawerModelValueUpdate = val => {
   >
     <!-- 👉 Title -->
     <AppDrawerHeaderSection
-      title="Create FanPage Type"
+      title="Add Songs"
       @cancel="closeNavigationDrawer"
     />
 
     <PerfectScrollbar :options="{ wheelPropagation: false }">
       <VCard flat>
         <VCardText>
+          <!-- 👉 Form -->
           <VForm
             ref="refForm"
             v-model="isFormValid"
             @submit.prevent="onSubmit"
           >
             <VRow>
+              <!-- 👉 Category -->
               <VCol cols="12">
-                <VTextField
-                  v-model="name"
-                  label="Name "
+                <VSelect
+                  v-model="category"
+                  label="Category"
+                  :rules="[requiredValidator]"
+                  :items="['Pop', 'Classic', 'Rock']"
+                />
+              </VCol>
+
+              <!-- 👉 Status -->
+              <VCol cols="12">
+                <VSelect
+                  v-model="status"
+                  label="Select status"
+                  :rules="[requiredValidator]"
+                  :items="['Active', 'Unactive']"
+                />
+              </VCol>
+
+              <!-- 👉 File -->
+              <VCol cols="12">
+                <VFileInput
+                  v-model="file"
+                  label="Select file"
                   :rules="[requiredValidator]"
                 />
               </VCol>
-
-              <VCol cols="12">
-                <VFileInput
-                  v-model="name"
-                  icon="bx-camera"
-                  label="Icon"
-                />
-              </VCol>
-
-              <VCol cols="12">
-                <div class="demo-space-x">
-                  <VSwitch
-                    v-model="switch1"
-                    label="CONCERTS"
-                    :true-value="1"
-                    :false-value="0"
-                  />
-
-                  <VSwitch
-                    v-model="switch2"
-                    label="DEMOSTRATION"
-                    true-value="Show"
-                    false-value="Hide"
-                  />
-                  
-                  <VSwitch
-                    v-model="switch3"
-                    label="CONFERENCE"
-                    true-value="Show"
-                    false-value="Hide"
-                  />
-                  
-                  <VSwitch
-                    v-model="switch4"
-                    label="UPLOAD VIDEO"
-                    true-value="Show"
-                    false-value="Hide"
-                  />
-                </div>
-              </VCol>
-
 
               <!-- 👉 Submit and Cancel -->
               <VCol cols="12">

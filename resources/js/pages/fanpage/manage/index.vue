@@ -13,6 +13,10 @@ const totalPage = ref(1)
 const totalUsers = ref(0)
 const users = ref([])
 
+const isDialogVisible = ref(false)
+const isDialogAcceptVisible = ref(false)
+const reason = ref('')
+
 // 👉 Fetching users
 const fetchUsers = () => {
   userListStore.fetchUsers({
@@ -226,7 +230,7 @@ const userListMeta = [
   {
     icon: 'bx-user',
     color: 'primary',
-    title: 'Event Manage Events',
+    title: 'Event Requests',
     stats: '21,459',
     percentage: +29,
     subtitle: 'Total Users',
@@ -286,14 +290,14 @@ const userListMeta = [
         </VCard>
       </VCol>
       <VCol cols="12">
-        <VCard title="All Manage Events">
+        <VCard title="All Requests">
           <VCardText class="d-flex flex-wrap gap-4">
             <VSpacer />
             <div class="app-user-search-filter d-flex align-center">
               <!-- 👉 Search  -->
               <VTextField
                 v-model="searchQuery"
-                placeholder="Search Manage Events"
+                placeholder="Search Requests"
                 density="compact"
                 class="me-3"
               />
@@ -318,16 +322,16 @@ const userListMeta = [
                   />
                 </th>
                 <th scope="col">
-                  Fanpage ID
+                  Request ID
                 </th>
                 <th scope="col">
-                  Owner Name
+                  Username
                 </th>
                 <th scope="col">
                   Fanpage name
                 </th>
                 <th scope="col">
-                  Fanpage Type
+                  Fanpage type
                 </th>
                 <th scope="col">
                   Time & Date
@@ -431,9 +435,18 @@ const userListMeta = [
                   class="text-center"
                   style="inline-size: 80px;"
                 >
-                  <MoreBtn
-                    :menu-list="computedMoreList(user.id)"
-                    item-props
+                  <VBtn
+                    icon="bx-check-circle"
+                    variant="text"
+                    color="success"
+                    @click="isDialogAcceptVisible = true"
+                  />
+
+                  <VBtn
+                    icon="bx-window-close"
+                    variant="text"
+                    color="error"
+                    @click="isDialogVisible = true"
                   />
                 </td>
               </tr>
@@ -451,6 +464,68 @@ const userListMeta = [
               </tr>
             </tfoot>
           </VTable>
+
+          <VDialog
+            v-model="isDialogVisible"
+            max-width="600"
+          >
+            <!-- Dialog Content -->
+            <VCard title="Block Fanpage">
+              <DialogCloseBtn
+                variant="text"
+                size="small"
+                @click="isDialogVisible = false"
+              />
+
+              <VCardText>
+                <VRow>
+                  <VCol cols="12">
+                    <VTextarea
+                      v-model="reason"
+                      label="Reason"
+                    />
+                  </VCol>
+                </VRow>
+              </VCardText>
+
+              <VCardText class="d-flex justify-end gap-2">
+                <VBtn
+                  color="secondary"
+                  variant="tonal"
+                  @click="isDialogVisible = false"
+                >
+                  Close
+                </VBtn>
+                <VBtn @click="isDialogVisible = false">
+                  Save
+                </VBtn>
+              </VCardText>
+            </VCard>
+          </VDialog>
+
+          <VDialog
+            v-model="isDialogAcceptVisible"
+            width="500"
+          >
+            <!-- Dialog Content -->
+            <VCard title="Accept Request">
+              <DialogCloseBtn
+                variant="text"
+                size="small"
+                @click="isDialogAcceptVisible = false"
+              />
+
+              <VCardText>
+                Bear claw pastry cotton candy jelly toffee. Pudding chocolate cake shortbread bonbon biscuit sweet. Lemon drops cupcake muffin brownie fruitcake. Pastry pastry tootsie roll jujubes chocolate cake gummi bears muffin pudding caramels. Jujubes lollipop gummies croissant shortbread. Cupcake dessert marzipan topping gingerbread apple pie chupa chups powder. Cake croissant halvah candy canes gummies.
+              </VCardText>
+
+              <VCardText class="text-end">
+                <VBtn @click="isDialogAcceptVisible = false">
+                  I accept
+                </VBtn>
+              </VCardText>
+            </VCard>
+          </VDialog>
 
           <VDivider />
 

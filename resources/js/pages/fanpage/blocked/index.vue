@@ -13,6 +13,10 @@ const totalPage = ref(1)
 const totalUsers = ref(0)
 const users = ref([])
 
+const isDialogVisible = ref(false)
+const isDialogAcceptVisible = ref(false)
+const reason = ref('')
+
 // 👉 Fetching users
 const fetchUsers = () => {
   userListStore.fetchUsers({
@@ -226,15 +230,47 @@ const computedMoreList = computed(() => {
 <template>
   <section>
     <VRow>
+      <VCol
+        v-for="meta in userListMeta"
+        :key="meta.title"
+        cols="12"
+        sm="6"
+        lg="4"
+      >
+        <VCard>
+          <VCardText class="d-flex justify-space-between">
+            <div>
+              <span>{{ meta.title }}</span>
+              <div class="d-flex align-center gap-2">
+                <h6 class="text-h6">
+                  {{ meta.stats }}
+                </h6>
+                <span
+                  :class="meta.percentage > 0 ? 'text-success' : 'text-error'"
+                  class="text-sm"
+                >({{ meta.percentage > 0 ? `+${meta.percentage}` : meta.percentage }}%)</span>
+              </div>
+              <span class="text-sm">{{ meta.subtitle }}</span>
+            </div>
+
+            <VAvatar
+              rounded
+              variant="tonal"
+              :color="meta.color"
+              :icon="meta.icon"
+            />
+          </VCardText>
+        </VCard>
+      </VCol>
       <VCol cols="12">
-        <VCard title="All Tickets">
+        <VCard title="All Requests">
           <VCardText class="d-flex flex-wrap gap-4">
             <VSpacer />
             <div class="app-user-search-filter d-flex align-center">
               <!-- 👉 Search  -->
               <VTextField
                 v-model="searchQuery"
-                placeholder="Search Tickets"
+                placeholder="Search Requests"
                 density="compact"
                 class="me-3"
               />
@@ -259,22 +295,22 @@ const computedMoreList = computed(() => {
                   />
                 </th>
                 <th scope="col">
-                  USER
+                  Request ID
                 </th>
                 <th scope="col">
-                  ROLE
+                  Username
                 </th>
                 <th scope="col">
-                  PLAN
+                  Fanpage name
                 </th>
                 <th scope="col">
-                  BILLING
+                  Fanpage type
                 </th>
                 <th scope="col">
-                  STATUS
+                  Time & Date
                 </th>
                 <th scope="col">
-                  ACTIONS
+                  Options
                 </th>
               </tr>
             </thead>
@@ -372,9 +408,18 @@ const computedMoreList = computed(() => {
                   class="text-center"
                   style="inline-size: 80px;"
                 >
-                  <MoreBtn
-                    :menu-list="computedMoreList(user.id)"
-                    item-props
+                  <VBtn
+                    icon="bx-check-circle"
+                    variant="text"
+                    color="success"
+                    @click="isDialogAcceptVisible = true"
+                  />
+
+                  <VBtn
+                    icon="bx-window-close"
+                    variant="text"
+                    color="error"
+                    @click="isDialogVisible = true"
                   />
                 </td>
               </tr>
@@ -392,6 +437,61 @@ const computedMoreList = computed(() => {
               </tr>
             </tfoot>
           </VTable>
+
+          <VDialog
+            v-model="isDialogVisible"
+            max-width="600"
+          >
+            <!-- Dialog Content -->
+            <VCard title="Remove Fanpage">
+              <DialogCloseBtn
+                variant="text"
+                size="small"
+                @click="isDialogVisible = false"
+              />
+
+              <VCardText>
+                Are u sure you want delete this page?
+              </VCardText>
+
+              <VCardText class="d-flex justify-end gap-2">
+                <VBtn
+                  color="secondary"
+                  variant="tonal"
+                  @click="isDialogVisible = false"
+                >
+                  Yes
+                </VBtn>
+                <VBtn @click="isDialogVisible = false">
+                  No
+                </VBtn>
+              </VCardText>
+            </VCard>
+          </VDialog>
+
+          <VDialog
+            v-model="isDialogAcceptVisible"
+            width="500"
+          >
+            <!-- Dialog Content -->
+            <VCard title="Unblock Fanpage">
+              <DialogCloseBtn
+                variant="text"
+                size="small"
+                @click="isDialogAcceptVisible = false"
+              />
+
+              <VCardText>
+                Unblock this page
+              </VCardText>
+
+              <VCardText class="text-end">
+                <VBtn @click="isDialogAcceptVisible = false">
+                  Yes
+                </VBtn>
+              </VCardText>
+            </VCard>
+          </VDialog>
 
           <VDivider />
 

@@ -13,18 +13,12 @@ const props = defineProps({
 
 const emit = defineEmits([
   'update:isDrawerOpen',
-  'CategoryData',
+  'ServicesData',
 ])
 
 const isFormValid = ref(false)
 const name = ref()
 const file = ref()
-const switch1 = ref(1)
-const switch2 = ref('Show')
-const switch3 = ref('Show')
-const switch4 = ref('Show')
-
-
 
 // 👉 drawer close
 const closeNavigationDrawer = () => {
@@ -38,7 +32,7 @@ const closeNavigationDrawer = () => {
 const onSubmit = () => {
   refForm.value?.validate().then(({ valid }) => {
     if (valid) {
-      emit('CategoryData', {
+      emit('ServicesData', {
         id: 0,
         name: name.value,
         currentfile: file.value,
@@ -61,7 +55,7 @@ const handleDrawerModelValueUpdate = val => {
 <template>
   <VNavigationDrawer
     temporary
-    :width="600"
+    :width="400"
     location="end"
     class="scrollable-content"
     :model-value="props.isDrawerOpen"
@@ -69,23 +63,25 @@ const handleDrawerModelValueUpdate = val => {
   >
     <!-- 👉 Title -->
     <AppDrawerHeaderSection
-      title="Create FanPage Type"
+      title="Add Services"
       @cancel="closeNavigationDrawer"
     />
 
     <PerfectScrollbar :options="{ wheelPropagation: false }">
       <VCard flat>
         <VCardText>
+          <!-- 👉 Form -->
           <VForm
             ref="refForm"
             v-model="isFormValid"
             @submit.prevent="onSubmit"
           >
             <VRow>
+              <!-- 👉 Name -->
               <VCol cols="12">
                 <VTextField
                   v-model="name"
-                  label="Name "
+                  label="Name"
                   :rules="[requiredValidator]"
                 />
               </VCol>
@@ -93,43 +89,11 @@ const handleDrawerModelValueUpdate = val => {
               <VCol cols="12">
                 <VFileInput
                   v-model="name"
-                  icon="bx-camera"
-                  label="Icon"
+                  label="Image "
+                  prepend-icon="bx-camera"
+                  :rules="[requiredValidator]"
                 />
               </VCol>
-
-              <VCol cols="12">
-                <div class="demo-space-x">
-                  <VSwitch
-                    v-model="switch1"
-                    label="CONCERTS"
-                    :true-value="1"
-                    :false-value="0"
-                  />
-
-                  <VSwitch
-                    v-model="switch2"
-                    label="DEMOSTRATION"
-                    true-value="Show"
-                    false-value="Hide"
-                  />
-                  
-                  <VSwitch
-                    v-model="switch3"
-                    label="CONFERENCE"
-                    true-value="Show"
-                    false-value="Hide"
-                  />
-                  
-                  <VSwitch
-                    v-model="switch4"
-                    label="UPLOAD VIDEO"
-                    true-value="Show"
-                    false-value="Hide"
-                  />
-                </div>
-              </VCol>
-
 
               <!-- 👉 Submit and Cancel -->
               <VCol cols="12">

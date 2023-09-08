@@ -1,7 +1,7 @@
 <script setup>
-import { useUserListStore } from '@/views/apps/user/useUserListStore'
-import { avatarText } from '@core/utils/formatters'
-import AddType from './add-Type.vue'
+import { useUserListStore } from '@/views/apps/user/useUserListStore';
+import { avatarText } from '@core/utils/formatters';
+import AddCategory from './add-songs.vue';
 
 const userListStore = useUserListStore()
 const searchQuery = ref('')
@@ -144,7 +144,7 @@ const resolveUserStatusVariant = stat => {
   return 'primary'
 }
 
-const isAddTypeVisible = ref(false)
+const isAddCategoryVisible = ref(false)
 
 // 👉 watching current page
 watchEffect(() => {
@@ -230,21 +230,21 @@ const computedMoreList = computed(() => {
   <section>
     <VRow>
       <VCol cols="12">
-        <VCard title="All Type">
+        <VCard title="All Songs">
           <VCardText class="d-flex flex-wrap gap-4">
             <VSpacer />
             <div class="app-user-search-filter d-flex align-center">
               <!-- 👉 Search  -->
               <VTextField
                 v-model="searchQuery"
-                placeholder="Search Type"
+                placeholder="Search Songs"
                 density="compact"
                 class="me-3"
               />
 
-              <!-- 👉 Add Type button -->
-              <VBtn @click="isAddTypeVisible = true">
-                Add Type
+              <!-- 👉 Add Category button -->
+              <VBtn @click="isAddCategoryVisible = true">
+                Add Songs
               </VBtn>
             </div>
           </VCardText>
@@ -267,13 +267,22 @@ const computedMoreList = computed(() => {
                   />
                 </th>
                 <th scope="col">
-                  Name
+                  USER
                 </th>
                 <th scope="col">
-                  Emoji
+                  ROLE
                 </th>
                 <th scope="col">
-                  Option
+                  PLAN
+                </th>
+                <th scope="col">
+                  BILLING
+                </th>
+                <th scope="col">
+                  STATUS
+                </th>
+                <th scope="col">
+                  ACTIONS
                 </th>
               </tr>
             </thead>
@@ -348,6 +357,34 @@ const computedMoreList = computed(() => {
                 <td class="text-capitalize text-high-emphasis">
                   <span class="text-base">{{ user.currentPlan }}</span>
                 </td>
+
+                <!-- 👉 Billing -->
+                <td>
+                  <span class="text-base text-high-emphasis">{{ user.billing }}</span>
+                </td>
+
+                <!-- 👉 Status -->
+                <td>
+                  <VChip
+                    :color="resolveUserStatusVariant(user.status)"
+                    density="compact"
+                    label
+                    class="text-uppercase"
+                  >
+                    {{ user.status }}
+                  </VChip>
+                </td>
+
+                <!-- 👉 Actions -->
+                <td
+                  class="text-center"
+                  style="inline-size: 80px;"
+                >
+                  <MoreBtn
+                    :menu-list="computedMoreList(user.id)"
+                    item-props
+                  />
+                </td>
               </tr>
             </tbody>
 
@@ -403,8 +440,8 @@ const computedMoreList = computed(() => {
       </VCol>
     </VRow>
     <!-- 👉 Add New User -->
-    <AddType
-      v-model:isDrawerOpen="isAddTypeVisible"
+    <AddCategory
+      v-model:isDrawerOpen="isAddCategoryVisible"
       @user-data="addNewUser"
     />
   </section>

@@ -1,7 +1,6 @@
 <script setup>
 import { useUserListStore } from '@/views/apps/user/useUserListStore'
 import { avatarText } from '@core/utils/formatters'
-import AddType from './add-Type.vue'
 
 const userListStore = useUserListStore()
 const searchQuery = ref('')
@@ -144,8 +143,6 @@ const resolveUserStatusVariant = stat => {
   return 'primary'
 }
 
-const isAddTypeVisible = ref(false)
-
 // 👉 watching current page
 watchEffect(() => {
   if (currentPage.value > totalPage.value)
@@ -224,28 +221,82 @@ const computedMoreList = computed(() => {
     },
   ]
 })
+
+const userListMeta = [
+  {
+    icon: 'bx-user',
+    color: 'primary',
+    title: 'Event manage',
+    stats: '21,459',
+    percentage: +29,
+    subtitle: 'Total Users',
+  },
+  {
+    icon: 'bx-user-plus',
+    color: 'error',
+    title: 'Total Events',
+    stats: '4,567',
+    percentage: +18,
+    subtitle: 'Last week analytics',
+  },
+  {
+    icon: 'bx-user-check',
+    color: 'success',
+    title: 'Total Past Events',
+    stats: '19,860',
+    percentage: -14,
+    subtitle: 'Last week analytics',
+  },
+]
 </script>
 
 <template>
   <section>
     <VRow>
+      <VCol
+        v-for="meta in userListMeta"
+        :key="meta.title"
+        cols="12"
+        sm="6"
+        lg="4"
+      >
+        <VCard>
+          <VCardText class="d-flex justify-space-between">
+            <div>
+              <span>{{ meta.title }}</span>
+              <div class="d-flex align-center gap-2">
+                <h6 class="text-h6">
+                  {{ meta.stats }}
+                </h6>
+                <span
+                  :class="meta.percentage > 0 ? 'text-success' : 'text-error'"
+                  class="text-sm"
+                >({{ meta.percentage > 0 ? `+${meta.percentage}` : meta.percentage }}%)</span>
+              </div>
+              <span class="text-sm">{{ meta.subtitle }}</span>
+            </div>
+
+            <VAvatar
+              rounded
+              variant="tonal"
+              :color="meta.color"
+              :icon="meta.icon"
+            />
+          </VCardText>
+        </VCard>
+      </VCol>
       <VCol cols="12">
-        <VCard title="All Type">
+        <VCard title="All manage">
           <VCardText class="d-flex flex-wrap gap-4">
             <VSpacer />
             <div class="app-user-search-filter d-flex align-center">
               <!-- 👉 Search  -->
               <VTextField
                 v-model="searchQuery"
-                placeholder="Search Type"
+                placeholder="Search manage"
                 density="compact"
                 class="me-3"
               />
-
-              <!-- 👉 Add Type button -->
-              <VBtn @click="isAddTypeVisible = true">
-                Add Type
-              </VBtn>
             </div>
           </VCardText>
 
@@ -267,13 +318,22 @@ const computedMoreList = computed(() => {
                   />
                 </th>
                 <th scope="col">
-                  Name
+                  USER
                 </th>
                 <th scope="col">
-                  Emoji
+                  ROLE
                 </th>
                 <th scope="col">
-                  Option
+                  PLAN
+                </th>
+                <th scope="col">
+                  BILLING
+                </th>
+                <th scope="col">
+                  STATUS
+                </th>
+                <th scope="col">
+                  ACTIONS
                 </th>
               </tr>
             </thead>
@@ -348,6 +408,34 @@ const computedMoreList = computed(() => {
                 <td class="text-capitalize text-high-emphasis">
                   <span class="text-base">{{ user.currentPlan }}</span>
                 </td>
+
+                <!-- 👉 Billing -->
+                <td>
+                  <span class="text-base text-high-emphasis">{{ user.billing }}</span>
+                </td>
+
+                <!-- 👉 Status -->
+                <td>
+                  <VChip
+                    :color="resolveUserStatusVariant(user.status)"
+                    density="compact"
+                    label
+                    class="text-uppercase"
+                  >
+                    {{ user.status }}
+                  </VChip>
+                </td>
+
+                <!-- 👉 Actions -->
+                <td
+                  class="text-center"
+                  style="inline-size: 80px;"
+                >
+                  <MoreBtn
+                    :menu-list="computedMoreList(user.id)"
+                    item-props
+                  />
+                </td>
               </tr>
             </tbody>
 
@@ -402,11 +490,6 @@ const computedMoreList = computed(() => {
         </VCard>
       </VCol>
     </VRow>
-    <!-- 👉 Add New User -->
-    <AddType
-      v-model:isDrawerOpen="isAddTypeVisible"
-      @user-data="addNewUser"
-    />
   </section>
 </template>
 

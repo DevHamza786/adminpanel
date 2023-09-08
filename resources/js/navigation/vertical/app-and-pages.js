@@ -27,6 +27,7 @@ export default [
         children: [
           { title: 'Add Music', to: 'content-music' },
           { title: 'Add Category', to: 'content-music-category' },
+          { title: 'Add Video', to: 'content-music-video' },
           { title: 'Artists', children: [
             { title: 'Add Artists', to: 'content-music-artists' },
             { title: 'Add Album', to: 'content-music-artists-album' },
@@ -49,6 +50,23 @@ export default [
           { title: 'Tickets', to: 'content-events-tickets' },
           { title: 'Services', to: 'content-events-service' },
         ] },
+    ],
+  },
+  { heading: 'Apps & Pages' },
+  {
+    title: 'Manage Stories',
+    icon: { icon: 'bx-book-content' },
+    children: [
+      { title: 'Manage Stories', to: 'manage' },
+      { title: 'Reported Stories', to: 'manage-report' },
+      { 
+        title: 'Settings',
+        children: [
+          { title: 'Add Songs', to: 'manage-songs' },
+          { title: 'Add Effect', to: 'manage-effect' },
+          { title: 'Stories Time', to: 'manage-stories' },
+        ], 
+      },
     ],
   },
   { heading: 'Apps & Pages' },
@@ -97,18 +115,19 @@ export default [
       { title: 'Ads on Hold', to: 'services-hold' },
     ],
   },
-  { heading: 'Apps & Pages' },
-  {
-    title: 'Product Ads',
-    icon: { icon: 'bx-category' },
-    children: [
-      { title: 'Manage Requests', to: 'product' },
-      { title: 'Manage Ads', to: 'product-manage' },
-      { title: 'Accepted Ads', to: 'product-accepted' },
-      { title: 'Denied Ads', to: 'product-denied' },
-      { title: 'Ads on Hold', to: 'product-hold' },
-    ],
-  },
+
+  // { heading: 'Apps & Pages' },
+  // {
+  //   title: 'Product Ads',
+  //   icon: { icon: 'bx-category' },
+  //   children: [
+  //     { title: 'Manage Requests', to: 'product' },
+  //     { title: 'Manage Ads', to: 'product-manage' },
+  //     { title: 'Accepted Ads', to: 'product-accepted' },
+  //     { title: 'Denied Ads', to: 'product-denied' },
+  //     { title: 'Ads on Hold', to: 'product-hold' },
+  //   ],
+  // },
   { heading: 'Apps & Pages' },
   {
     title: 'Income',
@@ -127,9 +146,13 @@ export default [
   { heading: 'Apps & Pages' },
   {
     title: 'Invoice',
-    icon: { icon: ' bx-group' },
+    icon: { icon: ' bx-file' },
     children: [
-      { title: 'List', to: 'invoice' },
+      { title: 'User Invoice', to: 'invoice-user' },
+      { title: 'Bazar Invoice', to: 'invoice-bazar' },
+      { title: 'OnlineShop Invoice', to: 'invoice-onlineshop' },
+      { title: 'Ads Service Invoice', to: 'invoice-adsservice' },
+      { title: 'Foodprotal Invoice', to: 'invoice-foodportal' },
       { title: 'Add', to: 'invoice-add' },
       { title: 'Edit', to: { name: 'invoice-edit-id', params: { id: '5036' } } },
     ],
@@ -137,7 +160,7 @@ export default [
   { heading: 'Apps & Pages' },
   {
     title: 'Chat Setting',
-    icon: { icon: ' bx-group' },
+    icon: { icon: ' bx-file' },
     children: [
       { title: 'Smileys', to: 'chat-settings-smileys' },
       { title: 'Ring Tone', to: 'chat-settings-ringtone' },
