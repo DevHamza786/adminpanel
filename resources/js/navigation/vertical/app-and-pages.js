@@ -7,13 +7,13 @@ export default [
       { title: 'Standard User', to: 'user-standard' },
       { title: 'Premium User', to: 'user-premium' },
       { title: 'Vip User', to: 'user-vip' },
-      { title: 'Flaged  User', to: 'user-flaged' },
-      { 
-        title: 'Settings',
-        icon: { icon: ' bx-cog' },
-        children: [
-          { title: 'User Roles', to: 'user-settings-user-role' },
-        ] },
+      // { title: 'Flaged  User', to: 'user-flaged' },
+      // { 
+      //   title: 'Settings',
+      //   icon: { icon: ' bx-cog' },
+      //   children: [
+      //     { title: 'User Roles', to: 'user-settings-user-role' },
+      //   ] },
     ],
   },
   { heading: 'Apps & Pages' },

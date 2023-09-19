@@ -367,9 +367,7 @@ const userListMeta = [
               />
 
               <!-- 👉 Add user button -->
-              <VBtn @click="isAddNewUserDrawerVisible = true">
-                Add User
-              </VBtn>
+              
             </div>
           </VCardText>
 
@@ -391,22 +389,28 @@ const userListMeta = [
                   />
                 </th>
                 <th scope="col">
-                  USER
+                  User Id
                 </th>
                 <th scope="col">
-                  ROLE
+                  User
                 </th>
                 <th scope="col">
-                  PLAN
+                  Device Type
                 </th>
                 <th scope="col">
-                  BILLING
+                  Device Imei
                 </th>
                 <th scope="col">
-                  STATUS
+                  Join
                 </th>
                 <th scope="col">
-                  ACTIONS
+                  Reports
+                </th>
+                <th scope="col">
+                  Status
+                </th>
+                <th scope="col">
+                  Options
                 </th>
               </tr>
             </thead>
@@ -428,6 +432,9 @@ const userListMeta = [
                 </td>
 
                 <!-- 👉 User -->
+                <td>
+                    1
+                </td>
                 <td>
                   <div class="d-flex align-center">
                     <VAvatar
@@ -460,31 +467,15 @@ const userListMeta = [
                   </div>
                 </td>
 
-                <!-- 👉 Role -->
                 <td>
-                  <VAvatar
-                    variant="tonal"
-                    :color="resolveUserRoleVariant(user.role).color"
-                    class="me-3"
-                    size="30"
-                  >
-                    <VIcon
-                      :icon="resolveUserRoleVariant(user.role).icon"
-                      :color="resolveUserRoleVariant(user.role).color"
-                      size="18"
-                    />
-                  </VAvatar>
-                  <span class="text-capitalize text-base">{{ user.role }}</span>
                 </td>
-
-                <!-- 👉 Plan -->
+                <td>
+                </td>
                 <td class="text-capitalize text-high-emphasis">
                   <span class="text-base">{{ user.currentPlan }}</span>
                 </td>
-
-                <!-- 👉 Billing -->
                 <td>
-                  <span class="text-base text-high-emphasis">{{ user.billing }}</span>
+                  0
                 </td>
 
                 <!-- 👉 Status -->
@@ -500,13 +491,28 @@ const userListMeta = [
                 </td>
 
                 <!-- 👉 Actions -->
-                <td
-                  class="text-center"
-                  style="inline-size: 80px;"
-                >
-                  <MoreBtn
-                    :menu-list="computedMoreList(user.id)"
-                    item-props
+                <td>
+                  <VBtn
+                    icon="bx-check-circle"
+                    variant="text"
+                    color="success"
+                  />
+
+                  <VBtn
+                    icon="bxs-time"
+                    variant="text"
+                    color="primary"
+                  />
+                  <VBtn
+                    icon="bx-dollar-circle"
+                    variant="text"
+                    color="success"
+                  />
+
+                  <VBtn
+                    icon="bx-trash"
+                    variant="text"
+                    color="error"
                   />
                 </td>
               </tr>
